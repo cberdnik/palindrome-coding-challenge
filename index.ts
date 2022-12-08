@@ -2,7 +2,6 @@
 import { PalindromeDetector } from './palindrome-detector';
 import './style.css';
 
-const appDiv: HTMLElement = document.getElementById('app');
 const numbers = [
   11211230,
   13001120,
