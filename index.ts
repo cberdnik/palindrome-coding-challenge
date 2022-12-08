@@ -1,10 +1,8 @@
 // Import stylesheets
-import { PalindromeDetector } from './palindrome.service';
+import { PalindromeDetector } from './palindrome-detector';
 import './style.css';
 
 const appDiv: HTMLElement = document.getElementById('app');
-appDiv.innerHTML = `<h1>TypeScript Starter</h1>`;
-
 const numbers = [
   11211230,
   13001120,
@@ -18,5 +16,9 @@ const numbers = [
 
 numbers.forEach((n) => {
   const isPalinDrome = PalindromeDetector.PalindromeDescendant(n);
-  console.log(`${n} => ${isPalinDrome}`);
+  const textnode = document.createTextNode(`${n} => ${isPalinDrome}`);
+  const node = document.createElement('li');
+
+  node.appendChild(textnode);
+  document.getElementById('output').appendChild(node);
 });
