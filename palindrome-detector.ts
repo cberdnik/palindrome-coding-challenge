@@ -2,25 +2,32 @@ import _ from 'lodash';
 
 export class PalindromeDetector {
   private _isPalindrome: boolean = false;
-  private _numberString: string;
 
-  private constructor(num: number) {
-    this._numberString = Math.floor(num).toString();
-  }
+  private constructor(private _number: number) {}
 
-  public static PalindromeDescendant(num: number) {
+  public static PalindromeDescendant(num: number): boolean {
     const palinDromeDetector = new PalindromeDetector(num);
+
     return palinDromeDetector.isPalindrome();
   }
 
   private isPalindrome(): boolean {
-    this.checkForPalindrome(this._numberString);
+    if (
+      this._number == null ||
+      Number.isNaN(this._number) ||
+      !Number.isFinite(this._number)
+    ) {
+      return false;
+    }
+    const num = Math.abs(this._number);
+
+    this.checkForPalindrome(num.toString());
     return this._isPalindrome;
   }
 
   private checkForPalindrome(str: string): void {
-    if (!str || str.length == 0 || str.length % 2 > 0) {
-      this._isPalindrome = this._isPalindrome || false;
+    if (str.length === 0) {
+      this._isPalindrome = false;
       return;
     }
 
@@ -35,11 +42,9 @@ export class PalindromeDetector {
   }
 
   private isStringPalindrome(str: string): boolean {
-    const left = str.slice(0, str.length / 2);
-    const right = str.slice(str.length / 2);
-    const reversedRight = this.reverse(right);
+    const reversed = this.reverse(str);
 
-    return left.indexOf(reversedRight) === 0;
+    return str.indexOf(reversed) === 0;
   }
 
   private reverse(str: string): string {
@@ -47,6 +52,7 @@ export class PalindromeDetector {
   }
 
   private calculateNextChild(str: string): string {
+    console.log(`str: ${str}`);
     let nextChild = '';
 
     if (str.length <= 2) {
@@ -56,8 +62,10 @@ export class PalindromeDetector {
     for (let i = 0; i < str.length - 1; i += 2) {
       const sum: number = this.sumDigits(str.charAt(i), str.charAt(i + 1));
       nextChild = nextChild.concat(sum.toString());
+      console.log(`sum: ${sum}`);
     }
 
+    console.log(`nextChild: ${nextChild}`);
     return nextChild;
   }
 
